@@ -35,3 +35,12 @@ class ReservationSerializer(serializers.ModelSerializer):
                 "این تاریخ و ساعت قبلاً رزرو شده است"
             )
         return data
+
+
+class PhoneSerializer(serializers.Serializer):
+    phone = serializers.CharField(max_length=15)
+
+
+class OtpVerifySerializer(serializers.Serializer):
+    phone = serializers.CharField(max_length=15)
+    code =serializers.CharField(max_length=5)
