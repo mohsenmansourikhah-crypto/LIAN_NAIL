@@ -1,54 +1,35 @@
-{% load static %}
 <header class="site-header">
-    <div class="container">
+    <div class="header-container">
 
-        <!-- TOP -->
-        <div class="header-top">
-            <span>📞 09190776013</span>
-            <span>📍 فردیس، سه راه حافظیه</span>
-        </div>
-
-        <!-- MAIN -->
-        <div class="header-main">
-
-            <!-- LOGO -->
-            <div class="header-logo">
-                <a href="">
-                    <img src="/static/images/nail_logo.png" alt="LIAN-NAIL">
-                    <span>LIAN NAIL</span>
-                </a>
-            </div>
-
-            <!-- ACCOUNT -->
-            <nav class="header-account">
-                {% if user.is_authenticated %}
-                    <a href="">حساب کاربری</a>
-
-                    {% if user.is_staff %}
-                        <a href="/admin/">ادمین</a>
-                    {% endif %}
-
-                    <form method="post" action="">
-                        {% csrf_token %}
-                        <button type="submit" class="logout-btn">خروج</button>
-                    </form>
-                {% else %}
-                    <a href="">ورود</a>
-                    <a href="" class="btn">ثبت نام</a>
-                {% endif %}
-            </nav>
-
+        <!-- LOGO -->
+        <div class="header-logo">
+            <img src="/static/images/nail_logo.png" alt="LIAN NAIL">
+            <span>LIAN NAIL</span>
         </div>
 
         <!-- MENU -->
-        <ul class="main-menu">
-            <li><a href="">خانه</a></li>
-             <li><a href="">محصولات</a></li>
-            <li><a href="">گالری</a></li>
-            <li><a href="">خدمات</a></li>
-            <li><a href="">رزرو وقت</a></li>
-            <li><a href="">ارتباط با ما</a></li>
-        </ul>
+        <nav class="header-nav">
+            <a href="#">صفحه اصلی</a>
+            <a href="#">خدمات</a>
+            <a href="#">گالری</a>
+            <a href="#">رزرو وقت</a>
+            <a href="#">تماس با ما</a>
+        </nav>
+
+        <!-- ACTIONS -->
+        <div class="header-actions">
+
+            <!-- SEARCH -->
+            <div class="search-box">
+                <input type="text" placeholder="جستجو...">
+                <button>🔍</button>
+            </div>
+
+            <!-- ACCOUNT -->
+            <a href="#" class="account-btn">ورود</a>
+             <a href="#" class="account-btn">خروج</a>
+
+        </div>
 
     </div>
 </header>
