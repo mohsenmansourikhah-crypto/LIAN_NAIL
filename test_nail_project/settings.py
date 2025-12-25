@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'product_module',
     'gallery_module',
     'django_render_partial',
+    'django_jalali',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'test_nail_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+AUTH_USER_MODEL = "account_module.User"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
