@@ -307,3 +307,109 @@ section {
     font-size: 26px;
     margin-bottom: 10px;
 }
+/* GALLERY */
+.gallery-page {
+    max-width: 1300px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.page-header {
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-size: 26px;
+    font-weight: 900;
+}
+
+.page-header p {
+    color: #aaa;
+    margin-top: 10px;
+}
+
+/* GRID */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+/* CARD */
+.gallery-card {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: .4s;
+}
+
+/* HOVER */
+.gallery-card:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.7), transparent);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+.gallery-overlay h3 {
+    font-size: 15px;
+    color: #fff;
+}
+/* RESERVATION */
+.reservation-page {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.reservation-form {
+    background: #111;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #1f1f1f;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    background: #0b0b0b;
+    border: 1px solid #222;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* BUTTON */
+.btn-main {
+    width: 100%;
+    padding: 14px;
+    background: #e59b29;
+    border: none;
+    border-radius: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 10px;
+}
