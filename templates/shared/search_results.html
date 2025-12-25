@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}نتایج جستجو{% endblock %}
+
+{% block content %}
+<section class="search-page">
+
+    <div class="search-header">
+        <h1>
+            نتایج جستجو برای:
+            <span>«{{ query }}»</span>
+        </h1>
+        <p>{{ results|length }} نتیجه پیدا شد</p>
+    </div>
+
+    {% if results %}
+    <div class="search-results">
+
+        {% for item in results %}
+        <div class="search-card">
+
+            <div class="search-image">
+                <img src="{{ item.image }}" alt="{{ item.title }}">
+            </div>
+
+            <div class="search-info">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+
+                <a href="{{ item.url }}" class="search-link">
+                    مشاهده جزئیات →
+                </a>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+    {% else %}
+    <div class="search-empty">
+        <h2>😕 نتیجه‌ای پیدا نشد</h2>
+        <p>عبارت دیگری را امتحان کنید</p>
+    </div>
+    {% endif %}
+
+</section>
+{% endblock %}
