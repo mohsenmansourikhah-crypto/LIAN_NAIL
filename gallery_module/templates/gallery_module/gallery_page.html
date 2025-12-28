@@ -1,24 +1,37 @@
 {% extends "shared/base.html" %}
+{% load thumbnail %}
+
 {% block title %}گالری نمونه‌کارها{% endblock %}
 
 {% block content %}
 <section class="gallery-page">
 
-    <div class="page-header">
+
+    <div class="gallery-header-box">
         <h1>گالری نمونه‌کارها</h1>
         <p>منتخبی از طراحی‌های اختصاصی LIAN-NAIL</p>
     </div>
 
     <div class="gallery-grid">
-        {% for item in items %}
+        {% for gallery in galleries %}
         <div class="gallery-card">
-            <img src="{{ item.image }}" alt="{{ item.title }}">
+
+            {% thumbnail gallery.image "400x400" crop="center" as thumb %}
+                <img src="{{ thumb.url }}"
+                     data-full="{{ gallery.image.url }}"
+                     alt="{{ gallery.caption }}"
+                     onclick="openImage(this.dataset.full)">
+            {% endthumbnail %}
+
             <div class="gallery-overlay">
-                <h3>{{ item.title }}</h3>
+                <h3>{{ gallery.caption }}</h3>
             </div>
+
         </div>
         {% endfor %}
     </div>
 
 </section>
 {% endblock %}
+
+

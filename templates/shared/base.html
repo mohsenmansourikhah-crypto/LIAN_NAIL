@@ -14,14 +14,25 @@
 
 <body>
 
+    <!-- HEADER -->
     {% render_partial "home_module.views.HeaderComponent" %}
 
+    <!-- MAIN CONTENT -->
     <main class="site-content">
         {% block content %}{% endblock %}
     </main>
 
-    {% block footer %}{% endblock %}
+    <!-- FOOTER -->
+    {% render_partial "home_module.views.FooterComponent" %}
 
+    <!-- LIGHTBOX MODAL -->
+    <div id="imageModal" class="image-modal" onclick="closeImage(event)">
+        <img id="modalImg" alt="">
+    </div>
+
+    <!-- JS -->
     <script src="{% static 'js/main.js' %}"></script>
+
 </body>
 </html>
+

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'product_module',
     'gallery_module',
     'django_render_partial',
+    'sorl.thumbnail',
     'django_jalali',
     'rest_framework',
 ]
@@ -136,6 +137,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

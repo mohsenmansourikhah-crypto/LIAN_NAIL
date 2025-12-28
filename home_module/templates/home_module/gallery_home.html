@@ -1,0 +1,23 @@
+{% load thumbnail %}
+<div class="gallery-header-box">
+        <h1>نمونه‌کارها</h1>
+    </div>
+
+    <div class="gallery-grid">
+        {% for gallery in galleries %}
+        <div class="gallery-card">
+
+            {% thumbnail gallery.image "400x400" crop="center" as thumb %}
+                <img src="{{ thumb.url }}"
+                     data-full="{{ gallery.image.url }}"
+                     alt="{{ gallery.caption }}"
+                     onclick="openImage(this.dataset.full)">
+            {% endthumbnail %}
+
+            <div class="gallery-overlay">
+                <h3>{{ gallery.caption }}</h3>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>

@@ -1,0 +1,42 @@
+{% extends "shared/base.html" %}
+{% load thumbnail %}
+
+{% block title %}محصولات | LIAN NAIL{% endblock %}
+
+{% block content %}
+<section class="products-page">
+
+     <div class="product-header-box">
+        <h1>محصولات</h1>
+        <p>محصولا اختصاصی LIAN-NAIL</p>
+    </div>
+
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+
+            <!-- تصویر محصول -->
+            <div class="product-image">
+                {% thumbnail product.image "400x400" crop="center" as thumb %}
+                    <img src="{{ thumb.url }}"
+                         data-full="{{ product.image.url }}"
+                         alt="{{ product.title }}"
+                         onclick="openImage(this.dataset.full)">
+                {% endthumbnail %}
+            </div>
+
+            <!-- اطلاعات -->
+            <div class="product-info">
+                <h3>{{ product.title }}</h3>
+                <span class="product-price">
+                    {{ product.price }} تومان
+                </span>
+                <p>{{ product.descriptions }}</p>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

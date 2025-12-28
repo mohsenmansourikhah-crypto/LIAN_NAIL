@@ -1,1 +1,39 @@
 {% extends "shared/base.html" %}
+{% load thumbnail %}
+{% load render_partial %}
+
+{% block title %}LIAN NAIL{% endblock %}
+
+{% block content %}
+    <section class="hero-slider">
+        <div class="slides">
+            {% for slider in sliders %}
+                {% thumbnail slider.image "1600x800" crop="center" as im %}
+                    <div class="slide {% if forloop.first %}active{% endif %}"
+                         style="background-image: url('{{ im.url }}')">
+                        <div class="slide-content">
+                            <h1>{{ slider.title }}</h1>
+                            <p>{{ slider.description }}</p>
+                            <a href="{% url 'gallery_page' %}" class="btn-primary">
+                                مشاهده نمونه‌کار
+                            </a>
+                        </div>
+                    </div>
+                {% endthumbnail %}
+            {% endfor %}
+
+
+        </div>
+
+
+    </section>
+
+    {% render_partial "home_module.views.GalleryHomeView" %}
+    <div class="section-divider"></div>
+    {% render_partial "home_module.views.ServiceHomeView" %}
+    <div class="section-divider"></div>
+    {% render_partial "home_module.views.ProductHomeView" %}
+
+
+
+{% endblock %}

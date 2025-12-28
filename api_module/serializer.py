@@ -1,4 +1,4 @@
-from .models import Product, Service, Gallery, Reservation
+from .models import Product, Service, Reservation, Gallery
 from rest_framework import serializers
 
 

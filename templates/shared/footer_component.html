@@ -1,0 +1,57 @@
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+        <!-- برند -->
+        <div class="footer-col footer-brand">
+            <h2>LIAN NAIL</h2>
+            <p>
+                ارائه خدمات تخصصی کاشت، ترمیم، مانیکور و پدیکور
+                با جدیدترین متدهای روز دنیا
+            </p>
+        </div>
+
+        <!-- لینک‌ها -->
+        <div class="footer-col">
+            <h3>دسترسی سریع</h3>
+            <ul>
+                <li><a href="{% url "home_page" %}">صفحه اصلی</a></li>
+                <li><a href="{% url "gallery_page" %}">گالری</a></li>
+                <li><a href="{% url "service_page" %}">خدمات</a></li>
+                 <li><a href="{% url "product_page" %}">محصولات</a></li>
+                <li><a href="/reserve/">رزرو وقت</a></li>
+            </ul>
+        </div>
+
+        <!-- خدمات -->
+        <div class="footer-col">
+            <h3>خدمات</h3>
+            <ul>
+                <li>کاشت ناخن</li>
+                <li>ترمیم ناخن</li>
+                <li>مانیکور</li>
+                <li>پدیکور</li>
+            </ul>
+        </div>
+
+        <!-- تماس -->
+        <div class="footer-col">
+            <h3>تماس با ما</h3>
+            <p>📍 کرج فردیس سه راه حافظیه خ داوری پاییز مارکت</p>
+            <p>📞 09190776013</p>
+            <p>🕒 10 صبح تا 8 شب</p>
+
+            <div class="footer-socials">
+                <a href="#">Instagram</a>
+                <a href="#">WhatsApp</a>
+                <a href="#">Telegram</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © {% now "Y" %} LIAN NAIL — تمامی حقوق محفوظ است
+    </div>
+
+</footer>

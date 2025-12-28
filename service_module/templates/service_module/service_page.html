@@ -1,0 +1,48 @@
+{% extends "shared/base.html" %}
+{% load thumbnail %}
+
+{% block title %}خدمات LIAN NAIL{% endblock %}
+
+{% block content %}
+<section class="services-page">
+<div class="service-header-box">
+        <h1>خدمات ها</h1>
+        <p>زیبایی دستان و پاهای شما با خدمات تخصصی LIAN-NAIL</p>
+    </div>
+    <div class="services-grid">
+
+        {% for service in services %}
+        <div class="service-card">
+
+            <!-- تصویر سرویس -->
+            <div class="service-image">
+                {% thumbnail service.image "400x300" crop="center" as im %}
+                    <img src="{{ im.url }}" alt="{{ service.title }}">
+                {% endthumbnail %}
+            </div>
+
+            <!-- اطلاعات -->
+            <h3>{{ service.title }}</h3>
+
+            {% if service.price %}
+                <div class="service-price">
+                    {{ service.price }} تومان
+                </div>
+            {% endif %}
+
+            <p class="service-desc">
+                {{ service.description }}
+            </p>
+
+            <!-- دکمه رزرو -->
+            <a href="" class="btn-primary">
+                رزرو وقت
+            </a>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+{% endblock %}

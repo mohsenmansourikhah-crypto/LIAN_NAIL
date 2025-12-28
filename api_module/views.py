@@ -131,3 +131,5 @@ class VerifyLoginViewSet(ViewSet):
         otp.delete()
 
         return Response({"detail": "ورود موفق"})
+
+# class SearchViewSet(ViewSet):

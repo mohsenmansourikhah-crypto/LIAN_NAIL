@@ -1,5 +1,7 @@
+{% load static %}
 <header class="site-header">
     <div class="header-container">
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
         <!-- LOGO -->
         <div class="header-logo">
@@ -8,10 +10,11 @@
         </div>
 
         <!-- MENU -->
-        <nav class="header-nav">
-            <a href="#">صفحه اصلی</a>
-            <a href="#">خدمات</a>
-            <a href="#">گالری</a>
+        <nav class="header-nav" id="mobileMenu">
+            <a href="{% url "home_page" %}">صفحه اصلی</a>
+            <a href="{% url "service_page" %}">خدمات</a>
+            <a href="{% url "gallery_page" %}">گالری</a>
+            <a href="{% url "product_page" %}">محصولات</a>
             <a href="#">رزرو وقت</a>
             <a href="#">تماس با ما</a>
         </nav>
@@ -22,7 +25,7 @@
             <!-- SEARCH -->
             <div class="search-box">
                 <input type="text" placeholder="جستجو...">
-                <button>🔍</button>
+                <button><img src="{% static "images/png_jzivu.png" %}" width="10" alt=""></button>
             </div>
 
             <!-- ACCOUNT -->
