@@ -1,3 +1,4 @@
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
     ProductViewSet,
@@ -21,4 +22,7 @@ router.register("auth/register/verify", VerifyRegisterViewSet, basename="registe
 router.register("auth/login", LoginViewSet, basename="login")
 router.register("auth/login/verify", VerifyLoginViewSet, basename="login-verify")
 
-urlpatterns = router.urls
+
+urlpatterns = [
+    path("", include(router.urls)),
+]

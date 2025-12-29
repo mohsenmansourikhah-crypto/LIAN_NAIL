@@ -1,9 +1,73 @@
-from django.shortcuts import render
+from django.views import View
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.http import JsonResponse
+from datetime import datetime
+from .forms import ReservationForm
 from api_module.models import Reservation
-from django.views.generic.list import ListView
+import jdatetime
+from datetime import datetime
 
-# Create your views here.
-class ReservationView(ListView):
-    model = Reservation
-    template_name = "reservation_module/reserve_page.html"
-    context_object_name = "reserve"
+
+
+class ReserveView(View):
+    template_name = 'reservation_module/reserve_page.html'
+
+    def get(self, request):
+        form = ReservationForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = ReservationForm(request.POST)
+
+        # ✅ اعتبارسنجی اولیه فرم (نام، تلفن، تاریخ)
+        if not form.is_valid():
+            messages.error(request, 'لطفاً نام، شماره تماس و تاریخ را وارد کنید')
+            return render(request, self.template_name, {'form': form})
+
+        date_str = form.cleaned_data.get('date')
+        time = form.cleaned_data.get('time')
+
+        # ✅ ساعت انتخاب شده؟
+        if not time:
+            messages.error(request, 'لطفاً ساعت رزرو را انتخاب کنید')
+            return redirect('reserve_page')
+
+        # ✅ تبدیل تاریخ جلالی به میلادی
+        try:
+            y, m, d = map(int, date_str.split('/'))
+            selected_date = jdatetime.date(y, m, d).togregorian()
+        except Exception:
+            messages.error(request, 'فرمت تاریخ نامعتبر است')
+            return redirect('reserve_page')
+
+        # ✅ جلوگیری از رزرو تاریخ گذشته
+        if selected_date < datetime.today().date():
+            messages.error(request, 'امکان رزرو برای تاریخ گذشته وجود ندارد')
+            return redirect('reserve_page')
+
+        # ✅ جلوگیری از تداخل واقعی
+        if Reservation.objects.filter(date=date_str, time=time).exists():
+            messages.error(request, 'این روز و ساعت قبلاً رزرو شده است')
+            return redirect('reserve_page')
+
+        # ✅ ذخیره نهایی
+        Reservation.objects.create(
+            full_name=form.cleaned_data['full_name'],
+            phone=form.cleaned_data['phone'],
+            date=date_str,
+            time=time
+        )
+
+        messages.success(request, 'رزرو شما با موفقیت ثبت شد ✅')
+        return redirect('reserve_page')
+
+
+class ReservedTimesView(View):
+    def get(self, request):
+        date = request.GET.get('date')
+        times = list(
+            Reservation.objects.filter(date=date)
+                .values_list('time', flat=True)
+        )
+        return JsonResponse(times, safe=False)

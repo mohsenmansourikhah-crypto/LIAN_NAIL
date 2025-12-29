@@ -92,40 +92,22 @@ class Gallery(models.Model):
         verbose_name_plural = "گالری تصاویر"
 
 
-# --------------------
-# RESERVATION (شمسی)
-# --------------------
+
+
 class Reservation(models.Model):
-    full_name = models.CharField(
-        max_length=100,
-        verbose_name="نام مشتری"
-    )
-    phone = models.CharField(
-        max_length=15,
-        verbose_name="شماره تماس"
-    )
-    service = models.ForeignKey(
-        Service,
-        on_delete=models.CASCADE,
-        related_name="reservations",
-        verbose_name="خدمات"
-    )
+    full_name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
 
-    date = jmodels.jDateField(
-        verbose_name="تاریخ رزرو")
-    time = models.TimeField(
-        verbose_name="ساعت رزرو"
-    )
+    date = models.CharField(max_length=10)  # YYYY/MM/DD (جلالی)
+    time = models.CharField(max_length=5)   # 10:00, 12:00 ...
 
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="زمان ثبت"
-    )
-
-    def __str__(self):
-        return f"{self.full_name} - {self.date} {self.time}"
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        unique_together = ('date', 'time')
         verbose_name = "رزرو"
         verbose_name_plural = "رزروها"
-        unique_together = ("date", "time")
+
+    def __str__(self):
+        return f"{self.full_name} | {self.date} | {self.time}"
+

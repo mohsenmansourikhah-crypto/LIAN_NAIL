@@ -1,37 +1,28 @@
-{% load static %}
 {% load render_partial %}
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}LIAN NAIL{% endblock %}</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#111">
-
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% include "shared/header_refrences.html" %}
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    {% render_partial "home_module.views.HeaderComponent" %}
+{% render_partial "home_module.views.HeaderComponent" %}
 
-    <!-- MAIN CONTENT -->
-    <main class="site-content">
-        {% block content %}{% endblock %}
-    </main>
+<main class="site-content">
+    {% block content %}{% endblock %}
+</main>
 
-    <!-- FOOTER -->
-    {% render_partial "home_module.views.FooterComponent" %}
 
-    <!-- LIGHTBOX MODAL -->
-    <div id="imageModal" class="image-modal" onclick="closeImage(event)">
-        <img id="modalImg" alt="">
-    </div>
 
-    <!-- JS -->
-    <script src="{% static 'js/main.js' %}"></script>
+<div id="imageModal" class="image-modal" onclick="closeImage(event)">
+    <img id="modalImg" alt="">
+</div>
+{% render_partial "home_module.views.FooterComponent" %}
+{% include "shared/footer_refrences.html" %}
 
 </body>
 </html>

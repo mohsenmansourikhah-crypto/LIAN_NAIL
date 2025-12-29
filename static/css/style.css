@@ -921,14 +921,25 @@ body {
 }
 
 @media (max-width: 768px) {
-    .hero-slider { height: 45vh; }
-    .slide-content h1 { font-size: 26px; }
-    .slide-content p { font-size: 14px; }
+    .hero-slider {
+        height: 45vh;
+    }
+
+    .slide-content h1 {
+        font-size: 26px;
+    }
+
+    .slide-content p {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 900px) {
-    .header-nav { display: none; }
+    .header-nav {
+        display: none;
+    }
 }
+
 .menu-toggle {
     display: none;
     font-size: 26px;
@@ -967,18 +978,20 @@ body {
         font-size: 16px;
     }
 }
+
 @media (max-width: 600px) {
 
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
+
     .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap; /* ⭐ خیلی مهم */
-}
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap; /* ⭐ خیلی مهم */
+    }
 
 
     .gallery-card img {
@@ -989,7 +1002,353 @@ body {
         padding: 30px 12px;
     }
 }
+
 html, body {
     width: 100%;
     overflow-x: hidden !important;
+}
+
+/* ===== PRODUCT DETAIL ===== */
+
+.products-detail {
+    padding: 80px 20px;
+    background: #1b1b1b;
+    color: #fff;
+}
+
+.product-header-box {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    text-align: center;
+    padding: 30px;
+    border: 1px solid rgba(229, 155, 41, .4);
+    border-radius: 18px;
+    background: linear-gradient(145deg, #111, #0a0a0a);
+}
+
+.product-header-box h1 {
+    color: #e59b29;
+    font-size: 28px;
+}
+
+.product-detail-wrapper {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+/* IMAGE */
+.product-detail-image img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain; /* ⭐ عکس کامل دیده میشه */
+    border-radius: 20px;
+    cursor: zoom-in;
+    background: #111;
+}
+
+/* INFO */
+.product-detail-info {
+    background: #151515;
+    padding: 35px;
+    border-radius: 22px;
+}
+
+.product-detail-price {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 800;
+    color: #e59b29;
+    margin-bottom: 20px;
+}
+
+.product-detail-desc {
+    font-size: 15px;
+    line-height: 2;
+    color: #e59b29;
+    margin-bottom: 35px;
+}
+
+/* CTA */
+.product-cta {
+    display: inline-block;
+    padding: 14px 40px;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #e59b29, #ffcc70);
+    color: #111;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .product-detail-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .product-detail-image img {
+        max-height: 350px;
+    }
+}
+
+/* ===== JALALI DATEPICKER DARK THEME ===== */
+
+.pdp-default {
+    background: #0f0f0f !important;
+    border: 1px solid rgba(229, 155, 41, .4) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 0 40px rgba(229, 155, 41, 0.25) !important;
+    font-family: sans-serif;
+}
+
+/* header */
+.pdp-header {
+    background: linear-gradient(145deg, #111, #0a0a0a) !important;
+    border-bottom: 1px solid rgba(229, 155, 41, .3);
+}
+
+.pdp-header .pdp-switch {
+    color: #e59b29 !important;
+    font-weight: 800;
+}
+
+/* arrows */
+.pdp-header .nextArrow,
+.pdp-header .prevArrow {
+    color: #e59b29 !important;
+}
+
+/* week days */
+.pdp-weekdays span {
+    color: #be893e !important;
+    font-size: 13px;
+}
+
+/* days */
+.pdp-days span {
+    color: #fff !important;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+/* hover */
+.pdp-days span:hover {
+    background: rgba(229, 155, 41, .25) !important;
+}
+
+/* today */
+.pdp-days span.today {
+    border: 1px solid #e59b29 !important;
+}
+
+/* selected */
+.pdp-days span.selected {
+    background: linear-gradient(45deg, #e59b29, #ffcc70) !important;
+    color: #111 !important;
+    font-weight: 800;
+}
+
+/* disabled */
+.pdp-days span.disabled {
+    color: #555 !important;
+    cursor: not-allowed;
+}
+
+/* footer */
+.pdp-footer {
+    border-top: 1px solid rgba(229, 155, 41, .3);
+}
+
+/* buttons */
+.pdp-btn {
+    background: rgba(229, 155, 41, .15) !important;
+    color: #e59b29 !important;
+    border-radius: 12px;
+    transition: .3s;
+}
+
+.pdp-btn:hover {
+    background: #e59b29 !important;
+    color: #000 !important;
+}
+
+input.jalali-datepicker {
+    cursor: pointer;
+}
+
+
+.time-select select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid #e5a32a;
+    background-color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* hover */
+.time-select select:hover {
+    border-color: #c98a17;
+}
+
+/* focus */
+.time-select select:focus {
+    outline: none;
+    border-color: #c98a17;
+    box-shadow: 0 0 0 3px rgba(229, 163, 42, 0.25);
+}
+
+/* options */
+.time-select option {
+    padding: 12px;
+    font-size: 14px;
+}
+
+/* ===== RESERVATION INFO ===== */
+.reservation-layout {
+    max-width: 1100px;
+    margin: 60px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.reservation-form-box {
+    background: #111;
+    padding: 35px;
+    border-radius: 22px;
+    border: 1px solid #1f1f1f;
+}
+
+/* info box */
+.reservation-info {
+    background: linear-gradient(145deg, #111, #0a0a0a);
+    padding: 35px;
+    border-radius: 22px;
+    border: 1px solid rgba(229, 155, 41, .35);
+    box-shadow: 0 0 40px rgba(229, 155, 41, .12);
+}
+
+.reservation-info h3 {
+    color: #e59b29;
+    margin-bottom: 18px;
+}
+
+/* تماس */
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.contact-item a {
+    color: #e59b29;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
+
+/* واتساپ */
+.whatsapp-btn {
+    margin-right: auto;
+    background: #25D366;
+    color: #111;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.whatsapp-btn:hover {
+    background: #1ebf5c;
+    transform: translateY(-2px);
+}
+
+/* آدرس */
+.address {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 18px;
+}
+
+/* ===== MAP ===== */
+.map-box {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.map-box iframe {
+    width: 100%;
+    height: 260px;
+    border: none;
+    filter: grayscale(1) brightness(.9);
+    transition: all .5s ease;
+}
+
+/* افکت hover */
+.map-box:hover iframe {
+    filter: grayscale(0) brightness(1);
+    transform: scale(1.05);
+}
+
+/* موبایل */
+@media (max-width: 768px) {
+    .reservation-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.alert.success {
+    background: rgba(0, 200, 0, .15);
+    color: #4cff4c;
+}
+
+.alert.error {
+    background: rgba(200, 0, 0, .15);
+    color: #ff6b6b;
+}
+.time-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.time-buttons button {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+}
+
+.time-buttons button.active {
+    background: #111;
+    color: #fff;
+}
+
+.time-buttons button.disabled {
+    background: #eee;
+    color: #999;
+    cursor: not-allowed;
 }

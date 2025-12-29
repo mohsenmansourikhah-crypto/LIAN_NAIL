@@ -1,3 +1,5 @@
+
+
 function openImage(src) {
     const modal = document.getElementById("imageModal");
     const img = document.getElementById("modalImg");
@@ -37,4 +39,22 @@ setInterval(() => {
     index = (index + 1) % slides.length;
     showSlide(index);
 }, 5000); // هر 5 ثانیه
+
+
+$('.jalali-datepicker').on('change', function () {
+    let date = $(this).val();
+
+    $.get('/api/reserved-times/', {date: date}, function (reservedTimes) {
+        $('select[name="time"] option').each(function () {
+            let value = $(this).val();
+            if (reservedTimes.includes(value)) {
+                $(this).prop('disabled', true).text('رزرو شده');
+            } else {
+                $(this).prop('disabled', false);
+            }
+        });
+    });
+});
+
+
 

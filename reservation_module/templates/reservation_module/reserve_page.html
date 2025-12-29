@@ -1,42 +1,48 @@
 {% extends "shared/base.html" %}
-{% block title %}رزرو وقت{% endblock %}
+{% load static %}
 
 {% block content %}
-<section class="reservation-page">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reservation.css' %}">
 
-    <div class="page-header">
-        <h1>رزرو وقت</h1>
-        <p>برای دریافت خدمات، وقت خود را رزرو کنید</p>
+
+    <div class="reservation-page">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" action="{% url 'reserve_page' %}" class="reservation-form">
+            {% csrf_token %}
+
+            {{ form.full_name }}
+            {{ form.phone }}
+            {{ form.date }}
+
+            <label>ساعت رزرو</label>
+            <div class="time-buttons">
+                <button type="button" data-time="10:00">10 تا 12</button>
+                <button type="button" data-time="12:00">12 تا 14</button>
+                <button type="button" data-time="14:00">14 تا 16</button>
+                <button type="button" data-time="16:00">16 تا 18</button>
+                <button type="button" data-time="18:00">18 تا 20</button>
+            </div>
+
+            {{ form.time }}
+
+
+            <button type="submit" class="btn-main">رزرو</button>
+        </form>
     </div>
 
-    <form class="reservation-form" method="post">
-        {% csrf_token %}
-
-        <div class="form-group">
-            <label>نام و نام خانوادگی</label>
-            <input type="text" name="full_name" placeholder="مثال: لیان محمدی">
-        </div>
-
-        <div class="form-group">
-            <label>شماره تماس</label>
-            <input type="tel" name="phone" placeholder="09xxxxxxxxx">
-        </div>
-
-        <div class="form-group">
-            <label>تاریخ</label>
-            <input type="date" name="date">
-        </div>
-
-        <div class="form-group">
-            <label>ساعت</label>
-            <input type="time" name="time">
-        </div>
-
-        <button type="submit" class="btn-main">
-            ثبت رزرو
-        </button>
-
-    </form>
-
-</section>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/reservation.js' %}"></script>
 {% endblock %}
+
+
+
+
+
+

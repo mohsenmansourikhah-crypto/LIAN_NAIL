@@ -1,0 +1,53 @@
+{% extends "shared/base.html" %}
+{% load thumbnail %}
+
+{% block title %}
+    {{ product.title }} | LIAN NAIL
+{% endblock %}
+
+{% block content %}
+    <section class="products-detail">
+
+        <div class="product-header-box">
+            <h1>{{ product.title }}</h1>
+        </div>
+
+        <div class="product-detail-wrapper">
+
+            <!-- IMAGE -->
+            <div class="product-detail-image">
+                {% thumbnail product.image "800x800" crop="center" as thumb %}
+                    <img
+                            src="{{ thumb.url }}"
+                            data-full="{{ product.image.url }}"
+                            alt="{{ product.title }}"
+                            onclick="openImage(this.dataset.full)">
+                {% endthumbnail %}
+            </div>
+
+            <!-- INFO -->
+            <div class="product-detail-info">
+
+            <span class="product-detail-price">
+                {{ product.price }} تومان
+            </span>
+
+                <div class="product-detail-desc">
+                    {{ product.description }}
+                </div>
+
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <button class="btn-primary">
+                        افزودن به سبد خرید
+                    </button>
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </section>
+{% endblock %}
+

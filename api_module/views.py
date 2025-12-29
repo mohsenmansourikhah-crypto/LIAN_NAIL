@@ -42,6 +42,9 @@ class ReservationViewSet(ModelViewSet):
     permission_classes = [AllowAny]
     http_method_names = ["post", "get"]
 
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
 
 class RegisterViewSet(ViewSet):
 
