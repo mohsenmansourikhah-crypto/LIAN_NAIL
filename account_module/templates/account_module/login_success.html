@@ -1,0 +1,18 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<div class="success-wrapper">
+    <div class="success-box">
+        <h2>🎉 خوش آمدید</h2>
+        <p>
+            ورود شما با موفقیت انجام شد
+        </p>
+        <a href="{% url 'home_page' %}" class="btn-main">
+            ورود به سایت
+        </a>
+    </div>
+</div>
+{% endblock %}

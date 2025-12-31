@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'reservation_module',
     'product_module',
     'gallery_module',
+    'contact_module',
     'django_render_partial',
     'sorl.thumbnail',
     'django_jalali',

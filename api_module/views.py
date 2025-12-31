@@ -15,6 +15,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import login
 from rest_framework.viewsets import ModelViewSet, ViewSet
+from rest_framework.decorators import api_view
 
 
 # Create your views here.
@@ -51,7 +52,6 @@ class RegisterViewSet(ViewSet):
     def create(self, request):
         serializer = PhoneSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         phone = serializer.validated_data["phone"]
 
         if User.objects.filter(phone=phone).exists():
@@ -60,12 +60,21 @@ class RegisterViewSet(ViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        code = str(random.randint(10000, 99999))
+        if not PhoneOTP.can_send(phone):
+            return Response(
+                {"detail": "لطفاً کمی بعد دوباره تلاش کنید"},
+                status=status.HTTP_429_TOO_MANY_REQUESTS
+            )
+
+        PhoneOTP.cleanup()
+
+        code = PhoneOTP.generate_code()
         PhoneOTP.objects.create(phone=phone, code=code)
 
-        print("REGISTER OTP:", code)
+        print("REGISTER OTP:", code)  # 👈 تست لوکال
 
         return Response({"detail": "کد ارسال شد"})
+
 
 
 class VerifyRegisterViewSet(ViewSet):
@@ -77,17 +86,18 @@ class VerifyRegisterViewSet(ViewSet):
         phone = serializer.validated_data["phone"]
         code = serializer.validated_data["code"]
 
-        otp = PhoneOTP.objects.filter(phone=phone, code=code).last()
-        if not otp:
+        if not PhoneOTP.is_valid(phone, code):
             return Response(
-                {"detail": "کد نامعتبر است"},
+                {"detail": "کد نامعتبر یا منقضی شده است"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        User.objects.create_user(phone=phone)
-        otp.delete()
+        user = User.objects.create_user(phone=phone)
+
+        PhoneOTP.objects.filter(phone=phone).delete()
 
         return Response({"detail": "ثبت‌نام موفق"})
+
 
 
 class LoginViewSet(ViewSet):
@@ -95,7 +105,6 @@ class LoginViewSet(ViewSet):
     def create(self, request):
         serializer = PhoneSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         phone = serializer.validated_data["phone"]
 
         if not User.objects.filter(phone=phone).exists():
@@ -104,12 +113,21 @@ class LoginViewSet(ViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        code = str(random.randint(10000, 99999))
+        if not PhoneOTP.can_send(phone):
+            return Response(
+                {"detail": "لطفاً کمی بعد دوباره تلاش کنید"},
+                status=status.HTTP_429_TOO_MANY_REQUESTS
+            )
+
+        PhoneOTP.cleanup()
+
+        code = PhoneOTP.generate_code()
         PhoneOTP.objects.create(phone=phone, code=code)
 
         print("LOGIN OTP:", code)
 
         return Response({"detail": "کد ورود ارسال شد"})
+
 
 
 class VerifyLoginViewSet(ViewSet):
@@ -121,18 +139,26 @@ class VerifyLoginViewSet(ViewSet):
         phone = serializer.validated_data["phone"]
         code = serializer.validated_data["code"]
 
-        otp = PhoneOTP.objects.filter(phone=phone, code=code).last()
-        if not otp:
+        if not PhoneOTP.is_valid(phone, code):
             return Response(
-                {"detail": "کد اشتباه است"},
+                {"detail": "کد اشتباه یا منقضی شده است"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
         user = User.objects.get(phone=phone)
         login(request, user)
 
-        otp.delete()
+        PhoneOTP.objects.filter(phone=phone).delete()
 
         return Response({"detail": "ورود موفق"})
 
+
+
 # class SearchViewSet(ViewSet):
+
+
+@api_view(['GET'])
+def reserved_times(request):
+    date = request.GET.get('date')
+    times = Reservation.objects.filter(date=date).values_list('time', flat=True)
+    return Response(list(times))

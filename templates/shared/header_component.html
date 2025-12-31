@@ -1,7 +1,7 @@
 {% load static %}
 <header class="site-header">
     <div class="header-container">
-<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
         <!-- LOGO -->
         <div class="header-logo">
@@ -16,7 +16,9 @@
             <a href="{% url "gallery_page" %}">گالری</a>
             <a href="{% url "product_page" %}">محصولات</a>
             <a href="{% url "reserve_page" %}">رزرو وقت</a>
-            <a href="#">تماس با ما</a>
+            <a href="{% url "contact_page" %}">تماس با ما</a>
+
+
         </nav>
 
         <!-- ACTIONS -->
@@ -29,8 +31,22 @@
             </div>
 
             <!-- ACCOUNT -->
-            <a href="#" class="account-btn">ورود</a>
-             <a href="#" class="account-btn">خروج</a>
+            {% if user.is_authenticated %}
+
+                {% if user.is_staff or user.is_superuser %}
+                    <a href="/admin/" class="account-btn">پنل ادمین</a>
+                {% endif %}
+
+                <a href="#" class="account-btn">حساب کاربری</a>
+                <a href="{% url 'logout_page' %}" class="account-btn">خروج</a>
+
+            {% else %}
+
+                <a href="{% url 'login_page' %}" class="account-btn">ورود</a>
+                <a href="{% url 'register_page' %}" class="account-btn">ثبت‌ نام</a>
+
+            {% endif %}
+
 
         </div>
 

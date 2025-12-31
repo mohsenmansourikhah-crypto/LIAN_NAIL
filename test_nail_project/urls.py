@@ -22,14 +22,12 @@ from django.conf.urls.static import static
 urlpatterns = [
 
     path("reserve/", include("reservation_module.urls")),
-
+    path("", include("account_module.urls")),
     path("gallery/", include("gallery_module.urls")),
     path("services/", include("service_module.urls")),
     path("products/", include("product_module.urls")),
-
-    # ❗ آخر از همه ریشه
+    path("contact/", include("contact_module.urls")),
     path("", include("home_module.urls")),
-
     path("api/", include("api_module.urls")),
     path("admin/", admin.site.urls),
 ]

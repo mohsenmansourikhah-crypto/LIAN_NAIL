@@ -1,39 +1,44 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const buttons = document.querySelectorAll('.time-buttons button');
-    const hiddenInput = document.getElementById('id_time');
-    const dateInput = document.getElementById('id_date');
+document.addEventListener("DOMContentLoaded", function () {
 
-    if (!hiddenInput || !dateInput || buttons.length === 0) {
-        return;
-    }
+    const dateInput = document.querySelector(".jalali-datepicker");
+    const timeButtons = document.querySelectorAll(".time-buttons button");
+    const hiddenTimeInput = document.querySelector('input[name="time"]');
 
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (btn.classList.contains('disabled')) return;
+    if (!dateInput || !timeButtons.length || !hiddenTimeInput) return;
 
-            buttons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    // انتخاب ساعت
+    timeButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (btn.classList.contains("disabled")) return;
 
-            hiddenInput.value = btn.dataset.time;
+            timeButtons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            hiddenTimeInput.value = btn.dataset.time;
         });
     });
 
-    dateInput.addEventListener('change', () => {
-        // ریست کامل ساعت
-        hiddenInput.value = '';
-        buttons.forEach(b => {
-            b.classList.remove('active');
-            b.classList.remove('disabled');
+    // تغییر تاریخ
+    dateInput.addEventListener("change", function () {
+        const date = this.value;
+        hiddenTimeInput.value = "";
+
+        timeButtons.forEach(btn => {
+            btn.classList.remove("active", "disabled");
+            btn.disabled = false;
         });
 
-        fetch(`/reserve/api/reserved-times/?date=${dateInput.value}`)
+        fetch(`/api/reserved-times/?date=${date}`)
             .then(res => res.json())
-            .then(times => {
-                buttons.forEach(btn => {
-                    if (times.includes(btn.dataset.time)) {
-                        btn.classList.add('disabled');
+            .then(reservedTimes => {
+                console.log("Reserved:", reservedTimes); // 👈 حتما ببین
+
+                timeButtons.forEach(btn => {
+                    if (reservedTimes.includes(btn.dataset.time)) {
+                        btn.classList.add("disabled");
+                        btn.disabled = true;
                     }
                 });
             });
     });
+
 });

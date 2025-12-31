@@ -1,3 +1,4 @@
+{% load static %}
 {% load render_partial %}
 
 <!DOCTYPE html>
@@ -5,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}LIAN NAIL{% endblock %}</title>
+
     {% include "shared/header_refrences.html" %}
 </head>
 
@@ -15,7 +17,6 @@
 <main class="site-content">
     {% block content %}{% endblock %}
 </main>
-
 
 
 <div id="imageModal" class="image-modal" onclick="closeImage(event)">

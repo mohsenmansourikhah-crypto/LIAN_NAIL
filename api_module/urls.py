@@ -8,7 +8,8 @@ from .views import (
     RegisterViewSet,
     VerifyLoginViewSet,
     VerifyRegisterViewSet,
-    LoginViewSet
+    LoginViewSet,
+    reserved_times
 )
 
 router = DefaultRouter()
@@ -22,7 +23,7 @@ router.register("auth/register/verify", VerifyRegisterViewSet, basename="registe
 router.register("auth/login", LoginViewSet, basename="login")
 router.register("auth/login/verify", VerifyLoginViewSet, basename="login-verify")
 
-
 urlpatterns = [
+    path('api/reserved-times/', reserved_times),
     path("", include(router.urls)),
 ]

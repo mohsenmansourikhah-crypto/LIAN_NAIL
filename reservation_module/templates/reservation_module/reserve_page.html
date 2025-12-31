@@ -2,44 +2,79 @@
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/reservation.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/reservation.css' %}">
 
+<section class="reservation-section">
 
-    <div class="reservation-page">
-
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-
-        <form method="post" action="{% url 'reserve_page' %}" class="reservation-form">
-            {% csrf_token %}
-
-            {{ form.full_name }}
-            {{ form.phone }}
-            {{ form.date }}
-
-            <label>ساعت رزرو</label>
-            <div class="time-buttons">
-                <button type="button" data-time="10:00">10 تا 12</button>
-                <button type="button" data-time="12:00">12 تا 14</button>
-                <button type="button" data-time="14:00">14 تا 16</button>
-                <button type="button" data-time="16:00">16 تا 18</button>
-                <button type="button" data-time="18:00">18 تا 20</button>
-            </div>
-
-            {{ form.time }}
-
-
-            <button type="submit" class="btn-main">رزرو</button>
-        </form>
+    <div class="reservation-header">
+        <h1>رزرو نوبت</h1>
+        <p>اطلاعات خود را وارد کرده و ساعت مورد نظر را انتخاب کنید</p>
     </div>
 
-    <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/reservation.js' %}"></script>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="reservation-grid">
+
+        <!-- فرم رزرو -->
+        <div class="reservation-card">
+            <form method="post" action="{% url 'reserve_page' %}">
+                {% csrf_token %}
+
+                {{ form.full_name }}
+                {{ form.phone }}
+                {{ form.date }}
+
+                <label class="time-label">ساعت رزرو</label>
+                <div class="time-buttons">
+                    <button type="button" data-time="10:00">10 تا 12</button>
+                    <button type="button" data-time="12:00">12 تا 14</button>
+                    <button type="button" data-time="14:00">14 تا 16</button>
+                    <button type="button" data-time="16:00">16 تا 18</button>
+                    <button type="button" data-time="18:00">18 تا 20</button>
+                </div>
+
+                {{ form.time }}
+
+                <button type="submit" class="btn-main full-btn">
+                    ثبت رزرو
+                </button>
+            </form>
+        </div>
+
+        <!-- اطلاعات تماس -->
+        <div class="reservation-card info-card">
+            <h3>اطلاعات تماس</h3>
+
+            <p class="contact-item">
+                📞 <a href="tel:09123456789">09190776013</a>
+            </p>
+
+            <p class="contact-item">
+                📍 کرج فردیس سه راه حافظیه روبروی مسجد مسلم این عقیل پاییز مارکت
+            </p>
+
+            <div class="map-box">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d809.6321032508273!2d50.9889255!3d35.7378149!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8d95002d86258d%3A0x40b8b948c22c764b!2z2b7Yp9uM24zYsiDZhdin2LHaqdiq!5e0!3m2!1sfa!2s!4v1767079503881!5m2!1sfa!2s"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+
+                </iframe>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="{% static 'js/reservation.js' %}"></script>
 {% endblock %}
+
+
+
 
 
 

@@ -25,8 +25,11 @@
                     {{ product.price }} تومان
                 </span>
                 <p>{{ product.descriptions }}</p>
+                   <a href="{% url "product_detail_page" product.id %}" class="btn-primary product-cta">
+                    جزییات محصول
+                </a>
             </div>
-
+            
         </div>
     {% endfor %}
 </div>

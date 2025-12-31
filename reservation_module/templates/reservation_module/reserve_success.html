@@ -1,0 +1,41 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/reservation.css' %}">
+
+<section class="reservation-success">
+
+    <div class="success-card">
+        <div class="success-icon">✅</div>
+
+        <h2>رزرو شما با موفقیت انجام شد</h2>
+
+        <p class="success-text">
+            در صورت لزوم با شما تماس گرفته می‌شود.
+            در غیر این صورت لطفاً در تاریخ و ساعت مشخص شده مراجعه نمایید.
+        </p>
+
+        <div class="success-info">
+            <div>
+                <span>📅 تاریخ رزرو:</span>
+                <strong>{{ date }}</strong>
+            </div>
+            <div>
+                <span>⏰ ساعت رزرو:</span>
+                <strong>{{ time }}</strong>
+            </div>
+        </div>
+
+        <a href="{% url "home_page" %}" class="btn-main">بازگشت به سایت</a>
+
+        <p class="success-footer">
+            با تشکر 🌸<br>
+            مجموعه لیان
+        </p>
+    </div>
+
+</section>
+{% endblock %}
+
+

@@ -1,9 +1,11 @@
 from django import forms
 from api_module.models import Reservation
 
+
 class ReservationForm(forms.ModelForm):
+    # ⏰ ساعت از طریق دکمه‌ها ست میشه
     time = forms.CharField(
-        required=False,   # 👈 خیلی مهم
+        required=False,   # خیلی مهم
         widget=forms.HiddenInput()
     )
 
@@ -25,6 +27,14 @@ class ReservationForm(forms.ModelForm):
                 'placeholder': 'انتخاب تاریخ'
             }),
         }
+
+    def validate_unique(self):
+        """
+        ⛔ جلوگیری از validate خودکار unique_together (date + time)
+        چون تداخل رو دستی توی View مدیریت می‌کنیم
+        """
+        pass
+
 
 
 

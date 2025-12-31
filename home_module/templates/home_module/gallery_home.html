@@ -1,23 +1,30 @@
 {% load thumbnail %}
-<div class="gallery-header-box">
-        <h1>نمونه‌کارها</h1>
-    </div>
 
-    <div class="gallery-grid">
-        {% for gallery in galleries %}
+<div class="gallery-header-box">
+    <h1>نمونه‌کارها</h1>
+</div>
+
+<div class="gallery-grid">
+    {% for gallery in galleries %}
         <div class="gallery-card">
 
             {% thumbnail gallery.image "400x400" crop="center" as thumb %}
-                <img src="{{ thumb.url }}"
-                     data-full="{{ gallery.image.url }}"
-                     alt="{{ gallery.caption }}"
-                     onclick="openImage(this.dataset.full)">
+                <img
+                    src="{{ thumb.url }}"
+                    class="gallery-img"
+                    data-full="{{ gallery.image.url }}"
+                    data-auth="{% if user.is_authenticated %}1{% else %}0{% endif %}"
+                    alt="{{ gallery.caption }}">
             {% endthumbnail %}
 
             <div class="gallery-overlay">
-                <h3>{{ gallery.caption }}</h3>
+{#                <h3>{{ gallery.caption }}</h3>#}
+                {% if not user.is_authenticated %}
+                    <span class="login-hint">برای مشاهده وارد شوید</span>
+                {% endif %}
             </div>
 
         </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
+</div>
+

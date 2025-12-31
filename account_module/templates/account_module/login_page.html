@@ -1,0 +1,25 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <div class="auth-page">
+        <div class="auth-box">
+            <h1>ورود</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="tel" name="phone" placeholder="شماره موبایل" required>
+                <button type="submit">ارسال کد ورود</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,60 +1,60 @@
+/* ================= IMAGE MODAL ================= */
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".gallery-card").forEach(card => {
+        card.addEventListener("click", () => {
+            const img = card.querySelector(".gallery-img");
+            const isAuth = img.dataset.auth === "1";
+
+            if (!isAuth) {
+                window.location.href = "/login/";
+                return;
+            }
+
+            openImage(img.dataset.full);
+        });
+    });
+});
+
 
 
 function openImage(src) {
     const modal = document.getElementById("imageModal");
     const img = document.getElementById("modalImg");
+    if (!modal || !img) return;
+
     img.src = src;
     modal.style.display = "flex";
 }
 
 function closeImage(e) {
-    if (e.target.id === "imageModal") {
+    if (e.target.id === "imageModal" || e.target.id === "modalImg") {
         document.getElementById("imageModal").style.display = "none";
     }
 }
 
+/* ================= HERO SLIDER ================= */
 document.addEventListener("DOMContentLoaded", () => {
     const slides = document.querySelectorAll(".slide");
-    let current = 0;
+    if (!slides.length) return;
+
+    let index = 0;
+    slides[index].classList.add("active");
 
     setInterval(() => {
-        slides[current].classList.remove("active");
-        current = (current + 1) % slides.length;
-        slides[current].classList.add("active");
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
     }, 5000);
 });
+
+/* ================= MOBILE MENU ================= */
 function toggleMenu() {
-    document.getElementById("mobileMenu").classList.toggle("active");
+    const menu = document.getElementById("mobileMenu");
+    if (menu) menu.classList.toggle("active");
 }
 
-let slides = document.querySelectorAll('.slide');
-let index = 0;
+/* ================= RESERVATION TIME BUTTONS ================= */
 
-function showSlide(i) {
-    slides.forEach(slide => slide.classList.remove('active'));
-    slides[i].classList.add('active');
-}
-
-setInterval(() => {
-    index = (index + 1) % slides.length;
-    showSlide(index);
-}, 5000); // هر 5 ثانیه
-
-
-$('.jalali-datepicker').on('change', function () {
-    let date = $(this).val();
-
-    $.get('/api/reserved-times/', {date: date}, function (reservedTimes) {
-        $('select[name="time"] option').each(function () {
-            let value = $(this).val();
-            if (reservedTimes.includes(value)) {
-                $(this).prop('disabled', true).text('رزرو شده');
-            } else {
-                $(this).prop('disabled', false);
-            }
-        });
-    });
-});
 
 
 

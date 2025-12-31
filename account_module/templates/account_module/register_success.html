@@ -1,0 +1,18 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<div class="success-wrapper">
+    <div class="success-box">
+        <h2>✅ ثبت‌نام با موفقیت انجام شد</h2>
+        <p>
+            اکنون می‌توانید وارد حساب کاربری خود شوید
+        </p>
+        <a href="{% url 'login_page' %}" class="btn-main">
+            رفتن به صفحه ورود
+        </a>
+    </div>
+</div>
+{% endblock %}

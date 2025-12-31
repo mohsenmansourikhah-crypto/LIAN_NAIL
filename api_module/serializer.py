@@ -1,5 +1,7 @@
 from .models import Product, Service, Reservation, Gallery
 from rest_framework import serializers
+import jdatetime
+from datetime import date
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -27,13 +29,21 @@ class ReservationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate(self, data):
-        if Reservation.objects.filter(
-                date=data["date"],
-                time=data["time"]
-        ).exists():
-            raise serializers.ValidationError(
-                "این تاریخ و ساعت قبلاً رزرو شده است"
-            )
+        date_str = data.get("date")
+        time = data.get("time")
+
+        try:
+            y, m, d = map(int, date_str.split('/'))
+            selected_date = jdatetime.date(y, m, d).togregorian()
+        except Exception:
+            raise serializers.ValidationError("فرمت تاریخ نامعتبر است")
+
+        if selected_date < date.today():
+            raise serializers.ValidationError("امکان رزرو برای تاریخ گذشته وجود ندارد")
+
+        if Reservation.objects.filter(date=date_str, time=time).exists():
+            raise serializers.ValidationError("این روز و ساعت قبلاً رزرو شده است")
+
         return data
 
 
@@ -43,4 +53,4 @@ class PhoneSerializer(serializers.Serializer):
 
 class OtpVerifySerializer(serializers.Serializer):
     phone = serializers.CharField(max_length=15)
-    code =serializers.CharField(max_length=5)
+    code = serializers.CharField(max_length=6)

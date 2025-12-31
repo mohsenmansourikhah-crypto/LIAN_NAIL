@@ -1,0 +1,55 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<section class="contact-section">
+
+    <div class="contact-header">
+        <h1>ارتباط با ما</h1>
+        <p>سؤالات، پیشنهادات و نظرات خود را با ما در میان بگذارید</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="contact-grid">
+
+        <!-- فرم -->
+        <div class="contact-card">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.title }}
+                {{ form.full_name }}
+                {{ form.phone }}
+                {{ form.message }}
+
+                <button type="submit" class="btn-main full-btn">
+                    ارسال پیام
+                </button>
+            </form>
+        </div>
+
+        <!-- اطلاعات تماس -->
+        <div class="contact-card info-card">
+            <h3>اطلاعات تماس</h3>
+
+            <p class="contact-item">
+                📞 <a href="tel:09123456789">0912 345 6789</a>
+            </p>
+
+            <p class="contact-item">
+                📍 تهران، خیابان ولیعصر، بالاتر از پارک ملت
+            </p>
+
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

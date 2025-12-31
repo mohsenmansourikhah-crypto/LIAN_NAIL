@@ -1,12 +1,9 @@
 from django.db import models
 from django.utils import timezone
 import random
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import AbstractUser, BaseUserManager
-
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from datetime import timedelta
 
 
 class UserManager(BaseUserManager):
@@ -28,7 +25,9 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    phone = models.CharField(max_length=20, unique=True, verbose_name="شماره موبایل")
+    phone = models.CharField(max_length=20, unique=True)
+    full_name = models.CharField(max_length=100)
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -36,14 +35,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = "phone"
-    REQUIRED_FIELDS = []
-
-    def __str__(self):
-        return self.phone
-
-    class Meta:
-        verbose_name = "کاربر"
-        verbose_name_plural = "کاربران"
 
 
 
@@ -58,3 +49,24 @@ class PhoneOTP(models.Model):
     @staticmethod
     def generate_code():
         return str(random.randint(10000, 99999))
+
+    @staticmethod
+    def is_valid(phone, code, minutes=2):
+        return PhoneOTP.objects.filter(
+            phone=phone,
+            code=code,
+            created_at__gte=timezone.now() - timedelta(minutes=minutes)
+        ).exists()
+
+    @staticmethod
+    def can_send(phone, seconds=60):
+        return not PhoneOTP.objects.filter(
+            phone=phone,
+            created_at__gte=timezone.now() - timedelta(seconds=seconds)
+        ).exists()
+
+    @staticmethod
+    def cleanup(minutes=5):
+        PhoneOTP.objects.filter(
+            created_at__lt=timezone.now() - timedelta(minutes=minutes)
+        ).delete()
